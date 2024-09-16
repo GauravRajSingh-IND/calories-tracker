@@ -63,29 +63,34 @@ class Calories:
         self.is_user_account_created = response['response']['isSuccess']
 
         # store user information in a json file for further use.
-        user_data = {
-                    "account_info": {
-                        "password": self.password,
-                        "email": self.email,
-                        "phone": self.phone_number
-                                    },
-                    "personal_info":{
-                        "weight_kg": self.weight_kg,
-                        "height_cm": self.height_cm,
-                        "age": self.age
-                                     }
-                    }
+        if self.is_user_account_created:
+            user_data = {
+                        "account_info": {
+                            "password": self.password,
+                            "email": self.email,
+                            "phone": self.phone_number
+                                        },
+                        "personal_info":{
+                            "weight_kg": self.weight_kg,
+                            "height_cm": self.height_cm,
+                            "age": self.age
+                                        },
+                        "other_info":   {}
+                        }
 
-        # read existing json file.
-        with open("data.json") as json_data:
-            json_data = json.load(json_data)
+            # read existing json file.
+            with open("data.json") as json_data:
+                json_data = json.load(json_data)
 
-        # append the new user data to json data
-        json_data[self.username] = user_data
+            # append the new user data to json data
+            json_data[self.username] = user_data
 
-        # write the json data to json file.
-        with open("data.json", "w") as file:
-            json.dump(json_data, file)
+            # write the json data to json file.
+            with open("data.json", "w") as file:
+                json.dump(json_data, file)
+
+        else:
+            raise "User not register, Please try again"
 
 client = Calories()
 client.register_user("jobner1", "testtesttest", "test", 12.5, 12, 12, 1213123)
