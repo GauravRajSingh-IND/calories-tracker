@@ -61,7 +61,24 @@ class Calories:
         response = self.Pixela.User().create_new_user(token=self.password, username= self.username)
         self.is_user_account_created = response['response']['isSuccess']
 
-        # create store user information in a json file for further use.
+        # store user information in a json file for further use.
+        user_data = {
+                    self.username: {
+                                        "account_info": {
+                                                         "password": self.password,
+                                                         "email": self.email,
+                                                         "phone": self.phone_number
+                                                         },
+                                        "personal_info": {
+                                                         "weight_kg": self.weight_kg,
+                                                         "height_cm": self.height_cm,
+                                                         "age": self.age
+                                                         }
+                                    }
+
+                    }
+
+        
 
 
 
@@ -69,7 +86,7 @@ class Calories:
 
 
 client = Calories()
-client.register_user("jobner171294", "testtesttest", "test", 12.5, 12, 12, 1213123)
+client.register_user("jobner2000", "testtesttest", "test", 12.5, 12, 12, 1213123)
 
 
 
