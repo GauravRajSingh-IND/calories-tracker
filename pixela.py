@@ -238,21 +238,3 @@ class Pixela:
 
             except requests.RequestException as e:
                 return {"status":False, "response":e}
-
-
-p = Pixela()
-response = p.Graph().create_graph("dyodhi", "grsmanohar", "pythonlearning", "python Learning 2023",
-                       "Hours", "float", "sora")
-print(response)
-
-
-"""
-{'username': 'dyodhi', 'token': 'grsmanohar', 
-'response': {'message': "Success. Let's visit https://pixe.la/@dyodhi , it is your profile page!", 
-'isSuccess': True}}
-"""
-
-"""
-("dyodhi", "grsmanohar", "pythonlearning", "python Learning 2023",
-                       "Hours", "float", "sora")
-"""

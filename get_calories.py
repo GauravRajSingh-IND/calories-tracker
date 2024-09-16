@@ -1,6 +1,8 @@
 import os
 import requests
 
+from pixela import Pixela
+
 END_POINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
 
 
@@ -15,6 +17,10 @@ class Calories:
         self.weight_kg = None
         self.height_cm = None
         self.age = None
+
+        # create pixela object.
+        self.Pixela = Pixela()
+        self.is_user_account_created = None
 
     def register_user(self, user:str, password:str, email:str, weight_kg:float, height_cm:float, age:int,
                       phone_number:int ):
@@ -43,7 +49,7 @@ class Calories:
         self.phone_number = phone_number
 
         # check if pixela username is already taken.
-        response_pixela_user = requests.get(url=f"https://pixe.la/@{self.username}")
+        response_pixela_user = requests.get(url=f"https://pixe.la/@{self.username}").status_code
         if response_pixela_user == 404:
             is_valid_pixela = True
 
@@ -51,12 +57,19 @@ class Calories:
             is_valid_pixela = False
             raise "username already taken, Please try again with different username."
 
-        # create a user  account in pixela
+        # create a user  account in pixela using Pixela object
+        response = self.Pixela.User().create_new_user(token=self.password, username= self.username)
+        self.is_user_account_created = response['response']['isSuccess']
+
+        # create store user information in a json file for further use.
+
+
+
 
 
 
 client = Calories()
-client.register_user("jobner", "test", "test", 12.5, 12, 12, 1213123)
+client.register_user("jobner171294", "testtesttest", "test", 12.5, 12, 12, 1213123)
 
 
 
