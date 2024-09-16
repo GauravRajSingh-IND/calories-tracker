@@ -1,10 +1,17 @@
+import json
 import tkinter
+from tkinter import StringVar
 
 from get_calories import Calories
 
 class UserInterface:
 
     def __init__(self):
+
+        self.userdata = None
+
+        self.existing_user_window_password = None
+        self.existing_user_window_username = None
 
         self.calories = Calories()
 
@@ -70,10 +77,43 @@ class UserInterface:
         self.existing_user_window_password.place(x=350, y=540)
 
         self.existing_user_window_login = tkinter.Button(self.existing_user_window, text="Login", width=15, font=('arial', 35, 'bold'),
-                                       bd=0, highlightthickness=0, height=1)
+                                       bd=0, highlightthickness=0, height=1, command= self.user_login)
         self.existing_user_window_login.place(x=335, y=680)
 
         self.bg_canvas_existing_user.place(x=0, y=0)
+
+    def user_login(self):
+
+        username = self.existing_user_window_username.get()
+        password = self.existing_user_window_password.get()
+
+        with open('data.json', 'r') as file:
+            data = json.load(file)
+
+        # check if the user exist in the database.
+        is_username_register = username in data
+
+        # check if the password match.
+        if is_username_register:
+            if data[username]["account_info"]["password"] == password:
+                is_password_match = True
+            else:
+                is_password_match = False
+
+            self.userdata = data[username]
+
+            # destroy existing_user_window_username and create new window.
+            self.existing_user_window.destroy()
+
+            # create a new window for user.
+            self.user = tkinter.Toplevel()
+            self.user.title(f'Welcome {username}')
+            self.user.geometry('1000x1000')
+            self.user.config(bg="slate blue")
+
+            # welcome message for user.
+            
+
 
     def launch_new_user(self):
 
