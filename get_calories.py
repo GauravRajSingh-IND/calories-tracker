@@ -5,6 +5,8 @@ import requests
 from pixela import Pixela
 
 END_POINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
+APP_ID = "f8d3f5c1"
+APP_KEY = "85e412a2ab3d7e88440bb01fc8b73ab7"
 
 
 class Calories:
@@ -92,8 +94,45 @@ class Calories:
         else:
             raise "User not register, Please try again"
 
-client = Calories()
-client.register_user("jobner1", "testtesttest", "test", 12.5, 12, 12, 1213123)
+
+    def get_calories(self, query:str, username:str, weight_kg:float, height_cm:float, age:int):
+        """
+        This function calculate the calories burned.
+        :param query: name of the exercise.
+        :param age: age of the user
+        :param height_cm: height of the user
+        :param weight_kg: weight of the user
+        :param username: username.
+        :return: dict object response.
+        """
+
+        # check if all the required parameters.
+        if not all([query, username, weight_kg, height_cm, age]):
+            raise "required parameters missing please try again."
+
+        headers = {
+            'x-app-id': APP_ID,
+            'x-app-key': APP_KEY
+        }
+
+        params = {
+            'query':query,
+            'weight_kg':weight_kg,
+            'height_cm':height_cm,
+            'age':age
+        }
+
+        try:
+            response = requests.post(url=END_POINT, json=params, headers=headers)
+            response.raise_for_status()
+            return response.text
+        except requests.RequestException as e:
+            return {'exercise': False}
+
+
+
+
+
 
 
 
