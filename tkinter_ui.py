@@ -1,8 +1,12 @@
 import tkinter
 
+from get_calories import Calories
+
 class UserInterface:
 
     def __init__(self):
+
+        self.calories = Calories()
 
         self.existing_user_window = None
         self.bg_canvas_existing_user = None
@@ -157,8 +161,24 @@ class UserInterface:
         # SUBMIT BUTTON.
         self.new_user_window_submit = tkinter.Button(self.new_user_window, text="Submit", width=15,
                                                          font=('arial', 25, 'bold'),
-                                                         bd=0, highlightthickness=0, height=1)
+                                                         bd=0, highlightthickness=0, height=1, command= self.register_new_user)
         self.new_user_window_submit.place(x=400, y=680)
-        
+
+    def register_new_user(self):
+        username = self.new_user_window_username_text.get()
+        password= self.new_user_window_password_text.get()
+        email = self.new_user_window_email_text.get()
+        weight = self.new_user_window_weight_text.get()
+        height = self.new_user_window_height_text.get()
+        age = self.new_user_window_age_text.get()
+        phone_number = self.new_user_window_phone_text.get()
+
+        response = self.calories.register_user(user=username, password=password, email=email, weight_kg= float(weight),
+                                               height_cm= float(height), age= int(age), phone_number= int(phone_number))
+
+
+        if response is None:
+            self.new_user_window.destroy()
+
 ui = UserInterface()
 ui.exit_window()
