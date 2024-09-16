@@ -110,6 +110,8 @@ class Calories:
         if not all([query, username, weight_kg, height_cm, age]):
             raise "required parameters missing please try again."
 
+        self.username = username
+
         headers = {
             'x-app-id': APP_ID,
             'x-app-key': APP_KEY
@@ -125,9 +127,34 @@ class Calories:
         try:
             response = requests.post(url=END_POINT, json=params, headers=headers)
             response.raise_for_status()
+
+            # add the response to calories json file.
+            with open("calories.json", "r") as json_data:
+                data = json.load(json_data)
+
+            # check if the username exist or not.
+            is_user_exist = data.get(self.username)
+
+            # if user don't exist.
+            if is_user_exist is None:
+                data[self.username] = {0:response.text}
+
+            # if user exist.
+            elif is_user_exist is not None:
+
+                # find the last key number.
+                next_key = int(list(data[self.username].keys())[-1]) + 1
+                data[self.username][next_key] = response.text
+
+            # dump json file.
+            with open('calories.json', 'w') as file:
+                json.dump(data, file)
+
             return response.text
+
         except requests.RequestException as e:
             return {'exercise': False}
+
 
 
 
