@@ -79,12 +79,6 @@ class Calories:
                     }
 
         
-
-
-
-
-
-
 client = Calories()
 client.register_user("jobner2000", "testtesttest", "test", 12.5, 12, 12, 1213123)
 
