@@ -66,6 +66,7 @@ class Calories:
 
         # store user information in a json file for further use.
         if self.is_user_account_created:
+
             user_data = {
                         "account_info": {
                             "password": self.password,
@@ -89,7 +90,7 @@ class Calories:
 
             # write the json data to json file.
             with open("data.json", "w") as file:
-                json.dump(json_data, file)
+                json.dump(json_data, file, indent=4)
 
         else:
             raise "User not register, Please try again"
@@ -148,23 +149,9 @@ class Calories:
 
             # dump json file.
             with open('calories.json', 'w') as file:
-                json.dump(data, file)
+                json.dump(data, file, indent= 4)
 
             return response.text
 
         except requests.RequestException as e:
             return {'exercise': False}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
