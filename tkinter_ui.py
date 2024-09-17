@@ -8,6 +8,7 @@ class UserInterface:
 
     def __init__(self):
 
+        self.username = None
         self.userdata = None
 
         self.existing_user_window_password = None
@@ -87,6 +88,8 @@ class UserInterface:
         username = self.existing_user_window_username.get()
         password = self.existing_user_window_password.get()
 
+        self.username = username
+
         with open('data.json', 'r') as file:
             data = json.load(file)
 
@@ -101,6 +104,7 @@ class UserInterface:
                 is_password_match = False
 
             self.userdata = data[username]
+            print(self.userdata)
 
             # destroy existing_user_window_username and create new window.
             self.existing_user_window.destroy()
@@ -112,8 +116,35 @@ class UserInterface:
             self.user.config(bg="slate blue")
 
             # welcome message for user.
-            
+            welcome_message = tkinter.Label(self.user, text= f"Welcome {username}", background= "slate blue",
+                                            font= ('arial', 30, 'bold'), foreground= "snow")
+            welcome_message.place(x= 350, y=50)
 
+            today_workout = tkinter.Label(self.user, text=f"Please write your workout for today?", background="slate blue",
+                                            font=('arial', 20, 'bold'), foreground="black")
+            today_workout.place(x=300, y=150)
+
+            self.exercise_var = StringVar()
+            # Section to add today exercise.
+            self.exercise = tkinter.Entry(self.user, textvariable=self.exercise_var, font=('arial', 25, 'bold'),
+                                          highlightthickness= 0, width= 50)
+            self.exercise.place(x= 150, y=200, height= 250)
+
+            # get calories button.
+            calories_button = tkinter.Button(self.user, text= "Calculate Calories", font= ('arial', 30, 'bold'),
+                                             command= self.get_calories)
+            calories_button.place(x=350, y=500)
+
+    def get_calories(self):
+
+        username = str(self.username)
+        weight_kg = self.userdata['personal_info']['weight_kg']
+        height_cm = self.userdata['personal_info']['height_cm']
+        age = self.userdata['personal_info']['age']
+
+        query = self.exercise.get()
+        response = self.calories.get_calories(query = query, username=username, weight_kg=weight_kg, height_cm=height_cm, age=age)
+        print(response)
 
     def launch_new_user(self):
 

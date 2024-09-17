@@ -1,1 +1,6 @@
-{}
+{
+    "phulera": {
+        "0": "{\"exercises\":[{\"tag_id\":317,\"user_input\":\"run\",\"duration_min\":60,\"met\":9.8,\"nf_calories\":882,\"photo\":{\"highres\":\"https://d2xdmhkmkbyw75.cloudfront.net/exercise/317_highres.jpg\",\"thumb\":\"https://d2xdmhkmkbyw75.cloudfront.net/exercise/317_thumb.jpg\",\"is_user_uploaded\":false},\"compendium_code\":12050,\"name\":\"running\",\"description\":null,\"benefits\":null}]}",
+        "1": "{\"exercises\":[{\"tag_id\":765,\"user_input\":\"yoga\",\"duration_min\":45,\"met\":3.3,\"nf_calories\":222.75,\"photo\":{\"highres\":\"https://d2xdmhkmkbyw75.cloudfront.net/exercise/765_highres.jpg\",\"thumb\":\"https://d2xdmhkmkbyw75.cloudfront.net/exercise/765_thumb.jpg\",\"is_user_uploaded\":false},\"compendium_code\":2180,\"name\":\"yoga\",\"description\":null,\"benefits\":null}]}"
+    }
+}

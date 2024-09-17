@@ -24,5 +24,18 @@
             "age": 30
         },
         "other_info": {}
+    },
+    "gauravrajsingh": {
+        "account_info": {
+            "password": "grsmanohar",
+            "email": "grsmanohar@gmail.com",
+            "phone": 9414592948
+        },
+        "personal_info": {
+            "weight_kg": 90.0,
+            "height_cm": 188.0,
+            "age": 30
+        },
+        "other_info": {}
     }
 }
